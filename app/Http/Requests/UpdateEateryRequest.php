@@ -40,7 +40,7 @@ class UpdateEateryRequest extends FormRequest
         return [
             'name.unique' => 'Kaon Ta Regalado already lists an eatery with this name.',
             'features.required' => 'Pick at least one feature.',
-            'permit_no.regex' => 'Permit number must look like DVO-2026-1203.',
+            'permit_no.regex' => 'Permit number must look like DVO-2026-0415.',
             'expires_on.after' => 'The permit must not be expired.',
         ];
     }
