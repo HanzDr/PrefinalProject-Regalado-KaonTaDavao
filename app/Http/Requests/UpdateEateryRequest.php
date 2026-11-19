@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Eatery;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -16,9 +15,10 @@ class UpdateEateryRequest extends FormRequest
     public function rules(): array
     {
         $eatery = $this->route('eatery');
+        $permit = $eatery->permit;
 
         return [
-            'name' => ['required', 'string', 'max:100', Rule::unique('eateries', 'name')->ignore($eatery)],
+            'name' => ['required', 'string', 'max:100', Rule::unique('eateries', 'name')->ignore($eatery->id)],
             'district_id' => ['required', 'exists:districts,id'],
             'address' => ['required', 'string', 'max:255'],
             'price_range' => ['required', 'in:budget,mid,splurge'],
@@ -29,7 +29,7 @@ class UpdateEateryRequest extends FormRequest
             'permit_no' => [
                 'required',
                 'regex:/^DVO-\d{4}-\d{4,5}$/',
-                Rule::unique('permits', 'permit_no')->ignore(optional($eatery->permit)->id),
+                Rule::unique('permits', 'permit_no')->ignore($permit?->id),
             ],
             'expires_on' => ['required', 'date', 'after:today'],
         ];

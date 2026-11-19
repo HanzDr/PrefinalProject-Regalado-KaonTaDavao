@@ -31,7 +31,7 @@
     </form>
 
     @if ($eateries->isEmpty())
-        <p class="mt-8 rounded border border-slate-200 bg-white p-6 text-center">No eateries match your filters.</p>
+        <p class="mt-8 rounded border border-slate-200 bg-white p-6 text-center">No eateries match your filters</p>
     @else
         <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($eateries as $eatery)
