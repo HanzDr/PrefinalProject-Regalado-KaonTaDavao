@@ -15,7 +15,7 @@ class HomeController extends Controller
             ->with(['district', 'features'])
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
-            ->having('reviews_count', '>', 0)
+            ->whereHas('reviews')
             ->orderByDesc('reviews_avg_rating')
             ->orderBy('name')
             ->limit(3)
