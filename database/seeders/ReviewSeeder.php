@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Eatery;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -31,13 +32,10 @@ class ReviewSeeder extends Seeder
         }
 
         foreach (Eatery::where('is_open', true)->where('id', '!=', $handMade->id)->get() as $eatery) {
-            for ($i = 0; $i < fake()->numberBetween(0, 6); $i++) {
-                $eatery->reviews()->create([
-                    'user_id' => $users->random()->id,
-                    'rating' => fake()->numberBetween(1, 5),
-                    'body' => fake()->paragraph(),
-                ]);
-            }
+            Review::factory()
+                ->count(fake()->numberBetween(0, 6))
+                ->for($eatery, 'eatery')
+                ->create();
         }
     }
 }

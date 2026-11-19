@@ -10,7 +10,7 @@ return [
     'eatery_slug' => 'carinderia-ni-regalado',
     'feature_name' => 'Suki ni Regalado',
     'user_name' => 'Derren Hanz Regalado',
-    'user_email' => 'regalado@kaonta.test',
+    'user_email' => 'derrenhanz@kaonta.test',
     'tita_name' => 'Tita Regalado',
     'tita_email' => 'tita.regalado@kaonta.test',
     'permit_no' => 'DVO-2026-1203',

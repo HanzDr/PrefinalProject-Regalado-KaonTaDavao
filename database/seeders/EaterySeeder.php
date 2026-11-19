@@ -5,9 +5,8 @@ namespace Database\Seeders;
 use App\Models\District;
 use App\Models\Eatery;
 use App\Models\Feature;
-use Database\Factories\DishFactory;
-use Database\Factories\EateryFactory;
-use Database\Factories\PermitFactory;
+use App\Models\Dish;
+use App\Models\Permit;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -44,24 +43,24 @@ class EaterySeeder extends Seeder
 
         foreach ($closed->concat($open) as $index => $eatery) {
             if ($index === 0) {
-                $eatery->permit()->create([
-                    'permit_no' => 'DVO-2026-1000',
-                    'expires_on' => '2020-01-01',
-                ]);
+                Permit::factory()
+                    ->expired()
+                    ->for($eatery, 'eatery')
+                    ->create([
+                        'permit_no' => 'DVO-2026-1000',
+                    ]);
             } else {
-                $eatery->permit()->create([
-                    'permit_no' => fake()->unique()->numerify('DVO-2026-#####'),
-                    'expires_on' => fake()->dateTimeBetween('+1 day', '+2 years')->format('Y-m-d'),
-                ]);
+                Permit::factory()
+                    ->for($eatery, 'eatery')
+                    ->create([
+                        'permit_no' => fake()->unique()->numerify('DVO-2026-####'),
+                    ]);
             }
 
-            $eatery->dishes()->createMany(
-                collect(range(1, fake()->numberBetween(2, 5)))->map(fn () => [
-                    'name' => fake()->randomElement(['Adobong Manok', 'Pork Sinigang', 'Grilled Tuna', 'Chicken Inasal', 'Ginisang Monggo']),
-                    'price' => fake()->randomFloat(2, 50, 250),
-                    'is_bestseller' => fake()->boolean(20),
-                ])->all()
-            );
+            Dish::factory()
+                ->count(fake()->numberBetween(2, 5))
+                ->for($eatery, 'eatery')
+                ->create();
 
             $eatery->features()->attach(
                 Feature::inRandomOrder()->limit(fake()->numberBetween(1, 3))->pluck('id')->all()
