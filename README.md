@@ -2,7 +2,7 @@
 
 **Student:** Derren Hanz Regalado
 
-Laravel 12-prelim-style full-stack guide for Davao City carinderias and eateries.
+Laravel 12 full-stack guide for Davao City carinderias and eateries.
 
 ## Setup
 
